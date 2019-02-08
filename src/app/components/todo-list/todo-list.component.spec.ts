@@ -1,5 +1,8 @@
 import {async, ComponentFixture, inject, TestBed} from '@angular/core/testing';
-import {AppComponent} from './app.component';
+
+import {TodoListComponent} from './todo-list.component';
+import {TodoStateEnum} from '../../enum/todo-state.enum';
+import {Todo} from '../../models/todo.model';
 import {FormsModule} from '@angular/forms';
 import {
   MatButtonModule,
@@ -12,21 +15,21 @@ import {
   MatRadioModule
 } from '@angular/material';
 import {Store} from '@ngrx/store';
-import {IAppStore} from './store/store.models';
-import {TestStore} from './test-store.test';
-import {TodoStateEnum} from './enum/todo-state.enum';
-import * as TodoActions from './store/todo/todo.action';
+import {IAppStore} from '../../store/store.models';
+import {TestStore} from '../../test-store.test';
+import {TodoListItemComponent} from '../todo-list-item/todo-list-item.component';
 import {RouterTestingModule} from '@angular/router/testing';
 
-describe('AppComponent', () => {
-  let component: AppComponent;
-  let fixture: ComponentFixture<AppComponent>;
+describe('TodoListComponent', () => {
+  let component: TodoListComponent;
+  let fixture: ComponentFixture<TodoListComponent>;
   let store: TestStore<IAppStore>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        TodoListItemComponent,
+        TodoListComponent
       ],
       imports: [
         RouterTestingModule,
@@ -43,11 +46,12 @@ describe('AppComponent', () => {
       providers: [
         {provide: Store, useClass: TestStore}
       ]
-    }).compileComponents();
+    })
+      .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AppComponent);
+    fixture = TestBed.createComponent(TodoListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -57,24 +61,38 @@ describe('AppComponent', () => {
     store.setState({toDoList: []}); // set default state
   }));
 
-  it('should create the app', () => {
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
+  it('should create', () => {
+    expect(component).toBeTruthy();
   });
 
-  it('should dispatch a GetTodos action', () => {
-    const dispatchSpy = spyOn(store, 'dispatch');
-    const todo = {
+  it('should sort Todo List', () => {
+    store.setState({
+        toDoList: []
+      }
+    );
+    const todoList = new Array<Todo>();
+    todoList.push({
       id: '1',
       state: TodoStateEnum.done,
       title: '',
       description: '',
       date: new Date('2011-01-10T10:20:30Z')
-    };
-    component.onAddTodo(todo);
-    expect(dispatchSpy).toHaveBeenCalledTimes(1);
-    expect(dispatchSpy).toHaveBeenCalledWith(
-      new TodoActions.AddTodo(todo)
-    );
+    });
+    todoList.push({
+      id: '2',
+      state: TodoStateEnum.inProgress,
+      title: '',
+      description: '',
+      date: new Date('2014-01-10T10:20:30Z')
+    });
+    todoList.push({
+      id: '3',
+      state: TodoStateEnum.toDo,
+      title: '',
+      description: '',
+      date: new Date('2011-01-10T10:20:30Z')
+    });
+
+    expect(component.sortTodos(todoList)[0].id).toEqual('2');
   });
 });

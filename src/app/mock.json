@@ -1,0 +1,25 @@
+{
+  "todos": [
+    {
+      "id": "1",
+      "title": "Go shopping",
+      "date": "2011-01-11T10:20:30Z",
+      "description": "Go shopping with friends",
+      "state": "TO_DO"
+    },
+    {
+      "id": "2",
+      "title": "Clean house",
+      "date": "2011-01-10T10:20:30Z",
+      "description": "Clean every room of the house",
+      "state": "IN_PROGRESS"
+    },
+    {
+      "id": "3",
+      "title": "Buy new phone",
+      "date": "2011-01-09T10:20:30Z",
+      "description": "Buy the last Apple Iphone",
+      "state": "IN_PROGRESS"
+    }
+  ]
+}

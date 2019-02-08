@@ -1,0 +1,11 @@
+<mat-card class="todo-card">
+  <div class="content">
+    <div class="left-line"></div>
+    <mat-card-content>
+      <h1 [ngClass]="{'crossed-out': todoIsDone(todo)}">
+        {{todo.title}}
+      </h1>
+    </mat-card-content>
+  </div>
+  <div class="footer" ngClass="{{getTodoFooterClass(todo)}}"></div>
+</mat-card>

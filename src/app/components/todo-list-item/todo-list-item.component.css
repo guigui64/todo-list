@@ -1,0 +1,43 @@
+.todo-card .left-line {
+  width: 25px;
+  background-color: #066987;
+}
+
+.todo-card .content {
+  display: inline-flex;
+  padding: 0;
+  width: 100%;
+  min-height: 50px;
+  text-align: center;
+}
+
+mat-card {
+  padding: 0;
+  text-align: start;
+}
+
+mat-card-content {
+  width: 100%;
+}
+
+.footer {
+  height: 10px;
+  background-color: #066987;
+  margin-top: -5px;
+}
+
+.footer-0 {
+  width: 0%;
+}
+
+.footer-50 {
+  width: 50%;
+}
+
+.footer-100 {
+  width: 100%;
+}
+
+.crossed-out {
+  text-decoration: line-through;
+}

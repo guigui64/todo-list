@@ -1,0 +1,25 @@
+.todos-list li {
+  list-style: none;
+}
+
+.todos-list app-todo-list-item {
+  width: 100%;
+  cursor: pointer;
+}
+
+ul {
+  padding: 0px;
+}
+
+mat-radio-button {
+  font-size: 13px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.content .todos-list {
+  width: 70%;
+}
