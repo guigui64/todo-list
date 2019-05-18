@@ -1,6 +1,11 @@
-import {async, ComponentFixture, inject, TestBed} from '@angular/core/testing';
-import {AppComponent} from './app.component';
-import {FormsModule} from '@angular/forms';
+import {
+  async,
+  ComponentFixture,
+  inject,
+  TestBed
+} from '@angular/core/testing';
+import { AppComponent } from './app.component';
+import { FormsModule } from '@angular/forms';
 import {
   MatButtonModule,
   MatCardModule,
@@ -11,12 +16,12 @@ import {
   MatProgressBarModule,
   MatRadioModule
 } from '@angular/material';
-import {Store} from '@ngrx/store';
-import {IAppStore} from './store/store.models';
-import {TestStore} from './test-store.test';
-import {TodoStateEnum} from './enum/todo-state.enum';
+import { Store } from '@ngrx/store';
+import { IAppStore } from './store/store.models';
+import { TestStore } from './test-store.test';
+import { TodoStateEnum } from './enum/todo-state.enum';
 import * as TodoActions from './store/todo/todo.action';
-import {RouterTestingModule} from '@angular/router/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -25,9 +30,7 @@ describe('AppComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
-      ],
+      declarations: [AppComponent],
       imports: [
         RouterTestingModule,
         FormsModule,
@@ -40,9 +43,7 @@ describe('AppComponent', () => {
         MatDialogModule,
         MatProgressBarModule
       ],
-      providers: [
-        {provide: Store, useClass: TestStore}
-      ]
+      providers: [{ provide: Store, useClass: TestStore }]
     }).compileComponents();
   }));
 
@@ -54,7 +55,7 @@ describe('AppComponent', () => {
 
   beforeEach(inject([Store], (testStore: TestStore<IAppStore>) => {
     store = testStore; // save store reference for use in tests
-    store.setState({toDoList: []}); // set default state
+    store.setState({ toDoList: [] }); // set default state
   }));
 
   it('should create the app', () => {
@@ -73,8 +74,6 @@ describe('AppComponent', () => {
     };
     component.onAddTodo(todo);
     expect(dispatchSpy).toHaveBeenCalledTimes(1);
-    expect(dispatchSpy).toHaveBeenCalledWith(
-      new TodoActions.AddTodo(todo)
-    );
+    expect(dispatchSpy).toHaveBeenCalledWith(new TodoActions.AddTodo(todo));
   });
 });

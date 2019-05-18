@@ -1,9 +1,14 @@
-import {async, ComponentFixture, inject, TestBed} from '@angular/core/testing';
+import {
+  async,
+  ComponentFixture,
+  inject,
+  TestBed
+} from '@angular/core/testing';
 
-import {TodoListComponent} from './todo-list.component';
-import {TodoStateEnum} from '../../enum/todo-state.enum';
-import {Todo} from '../../models/todo.model';
-import {FormsModule} from '@angular/forms';
+import { TodoListComponent } from './todo-list.component';
+import { TodoStateEnum } from '../../enum/todo-state.enum';
+import { Todo } from '../../models/todo.model';
+import { FormsModule } from '@angular/forms';
 import {
   MatButtonModule,
   MatCardModule,
@@ -14,11 +19,11 @@ import {
   MatProgressBarModule,
   MatRadioModule
 } from '@angular/material';
-import {Store} from '@ngrx/store';
-import {IAppStore} from '../../store/store.models';
-import {TestStore} from '../../test-store.test';
-import {TodoListItemComponent} from '../todo-list-item/todo-list-item.component';
-import {RouterTestingModule} from '@angular/router/testing';
+import { Store } from '@ngrx/store';
+import { IAppStore } from '../../store/store.models';
+import { TestStore } from '../../test-store.test';
+import { TodoListItemComponent } from '../todo-list-item/todo-list-item.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('TodoListComponent', () => {
   let component: TodoListComponent;
@@ -27,10 +32,7 @@ describe('TodoListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        TodoListItemComponent,
-        TodoListComponent
-      ],
+      declarations: [TodoListItemComponent, TodoListComponent],
       imports: [
         RouterTestingModule,
         FormsModule,
@@ -43,11 +45,8 @@ describe('TodoListComponent', () => {
         MatDialogModule,
         MatProgressBarModule
       ],
-      providers: [
-        {provide: Store, useClass: TestStore}
-      ]
-    })
-      .compileComponents();
+      providers: [{ provide: Store, useClass: TestStore }]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -58,7 +57,7 @@ describe('TodoListComponent', () => {
 
   beforeEach(inject([Store], (testStore: TestStore<IAppStore>) => {
     store = testStore; // save store reference for use in tests
-    store.setState({toDoList: []}); // set default state
+    store.setState({ toDoList: [] }); // set default state
   }));
 
   it('should create', () => {
@@ -67,9 +66,8 @@ describe('TodoListComponent', () => {
 
   it('should sort Todo List', () => {
     store.setState({
-        toDoList: []
-      }
-    );
+      toDoList: []
+    });
     const todoList = new Array<Todo>();
     todoList.push({
       id: '1',

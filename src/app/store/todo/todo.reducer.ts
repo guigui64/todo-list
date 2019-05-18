@@ -1,6 +1,6 @@
-import {Todo} from '../../models/todo.model';
+import { Todo } from '../../models/todo.model';
 import * as TodoActions from './todo.action';
-import {TodoStateEnum} from '../../enum/todo-state.enum';
+import { TodoStateEnum } from '../../enum/todo-state.enum';
 
 export type Action = TodoActions.AllActions;
 
@@ -26,16 +26,18 @@ export function todosReducer(state, action: Action): Array<Todo> {
       return state.concat(newTodosArray);
     }
     case TodoActions.DELETE_TODO: {
-      return state.filter((todo) => {
+      return state.filter(todo => {
         return todo.id !== action.payload.id;
       });
     }
     case TodoActions.UPDATE_TODO: {
-      return state.map((todo) => {
-        return ((todo.id !== action.payload.id) ? todo : Object.assign({}, todo, {
-          description: action.payload.description,
-          date: new Date()
-        }));
+      return state.map(todo => {
+        return todo.id !== action.payload.id
+          ? todo
+          : Object.assign({}, todo, {
+              description: action.payload.description,
+              date: new Date()
+            });
       });
     }
     default: {

@@ -1,11 +1,16 @@
-import {async, ComponentFixture, inject, TestBed} from '@angular/core/testing';
+import {
+  async,
+  ComponentFixture,
+  inject,
+  TestBed
+} from '@angular/core/testing';
 
-import {NewTodoComponent} from './new-todo.component';
-import {TestStore} from '../../test-store.test';
-import {IAppStore} from '../../store/store.models';
-import {RouterTestingModule} from '@angular/router/testing';
-import {FormsModule} from '@angular/forms';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { NewTodoComponent } from './new-todo.component';
+import { TestStore } from '../../test-store.test';
+import { IAppStore } from '../../store/store.models';
+import { RouterTestingModule } from '@angular/router/testing';
+import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatButtonModule,
   MatCardModule,
@@ -16,7 +21,7 @@ import {
   MatProgressBarModule,
   MatRadioModule
 } from '@angular/material';
-import {Store} from '@ngrx/store';
+import { Store } from '@ngrx/store';
 
 describe('NewTodoComponent', () => {
   let component: NewTodoComponent;
@@ -25,9 +30,7 @@ describe('NewTodoComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        NewTodoComponent
-      ],
+      declarations: [NewTodoComponent],
       imports: [
         RouterTestingModule,
         FormsModule,
@@ -41,16 +44,13 @@ describe('NewTodoComponent', () => {
         MatDialogModule,
         MatProgressBarModule
       ],
-      providers: [
-        {provide: Store, useClass: TestStore}
-      ]
-    })
-      .compileComponents();
+      providers: [{ provide: Store, useClass: TestStore }]
+    }).compileComponents();
   }));
 
   beforeEach(inject([Store], (testStore: TestStore<IAppStore>) => {
     store = testStore; // save store reference for use in tests
-    store.setState({toDoList: []}); // set default state
+    store.setState({ toDoList: [] }); // set default state
   }));
 
   beforeEach(() => {

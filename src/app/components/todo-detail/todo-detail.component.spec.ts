@@ -1,11 +1,16 @@
-import {async, ComponentFixture, inject, TestBed} from '@angular/core/testing';
+import {
+  async,
+  ComponentFixture,
+  inject,
+  TestBed
+} from '@angular/core/testing';
 
-import {TodoDetailComponent} from './todo-detail.component';
-import {TestStore} from '../../test-store.test';
-import {IAppStore} from '../../store/store.models';
-import {RouterTestingModule} from '@angular/router/testing';
-import {FormsModule} from '@angular/forms';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { TodoDetailComponent } from './todo-detail.component';
+import { TestStore } from '../../test-store.test';
+import { IAppStore } from '../../store/store.models';
+import { RouterTestingModule } from '@angular/router/testing';
+import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatButtonModule,
   MatCardModule,
@@ -16,8 +21,8 @@ import {
   MatProgressBarModule,
   MatRadioModule
 } from '@angular/material';
-import {Store} from '@ngrx/store';
-import {TodoStateEnum} from '../../enum/todo-state.enum';
+import { Store } from '@ngrx/store';
+import { TodoStateEnum } from '../../enum/todo-state.enum';
 import * as TodoActions from '../../store/todo/todo.action';
 
 describe('TodoDetailComponent', () => {
@@ -27,9 +32,7 @@ describe('TodoDetailComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        TodoDetailComponent
-      ],
+      declarations: [TodoDetailComponent],
       imports: [
         RouterTestingModule,
         FormsModule,
@@ -43,16 +46,13 @@ describe('TodoDetailComponent', () => {
         MatDialogModule,
         MatProgressBarModule
       ],
-      providers: [
-        {provide: Store, useClass: TestStore}
-      ]
-    })
-      .compileComponents();
+      providers: [{ provide: Store, useClass: TestStore }]
+    }).compileComponents();
   }));
 
   beforeEach(inject([Store], (testStore: TestStore<IAppStore>) => {
     store = testStore; // save store reference for use in tests
-    store.setState({toDoList: []}); // set default state
+    store.setState({ toDoList: [] }); // set default state
   }));
 
   beforeEach(() => {
@@ -81,9 +81,7 @@ describe('TodoDetailComponent', () => {
 
     component.deleteTodo(todo);
     expect(dispatchSpy).toHaveBeenCalledTimes(1);
-    expect(dispatchSpy).toHaveBeenCalledWith(
-      new TodoActions.DeleteTodo(todo)
-    );
+    expect(dispatchSpy).toHaveBeenCalledWith(new TodoActions.DeleteTodo(todo));
   });
 
   it('should dispatch a UpdateTodo action', () => {
@@ -98,9 +96,7 @@ describe('TodoDetailComponent', () => {
 
     component.editTodo(todo);
     expect(dispatchSpy).toHaveBeenCalledTimes(1);
-    expect(dispatchSpy).toHaveBeenCalledWith(
-      new TodoActions.UpdateTodo(todo)
-    );
+    expect(dispatchSpy).toHaveBeenCalledWith(new TodoActions.UpdateTodo(todo));
     expect(component.editMode).toEqual(false);
   });
 

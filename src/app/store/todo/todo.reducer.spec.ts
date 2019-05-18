@@ -1,8 +1,8 @@
 import * as reducer from './todo.reducer';
 import * as actions from './todo.action';
-import {INITIAL_STATE} from '../store.models';
-import {Todo} from '../../models/todo.model';
-import {TodoStateEnum} from '../../enum/todo-state.enum';
+import { INITIAL_STATE } from '../store.models';
+import { Todo } from '../../models/todo.model';
+import { TodoStateEnum } from '../../enum/todo-state.enum';
 
 describe('TodoReducer', () => {
   const todoList = new Array<Todo>();

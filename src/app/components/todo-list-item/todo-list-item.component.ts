@@ -1,6 +1,6 @@
-import {Component, Input} from '@angular/core';
-import {Todo} from '../../models/todo.model';
-import {TodoStateEnum} from '../../enum/todo-state.enum';
+import { Component, Input } from '@angular/core';
+import { Todo } from '../../models/todo.model';
+import { TodoStateEnum } from '../../enum/todo-state.enum';
 
 @Component({
   selector: 'app-todo-list-item',
@@ -10,8 +10,7 @@ import {TodoStateEnum} from '../../enum/todo-state.enum';
 export class TodoListItemComponent {
   @Input() todo: Todo;
 
-  constructor() {
-  }
+  constructor() {}
 
   /**
    * Get footer CSS class for footer

@@ -1,5 +1,5 @@
-import {Action} from '@ngrx/store';
-import {Todo} from '../../models/todo.model';
+import { Action } from '@ngrx/store';
+import { Todo } from '../../models/todo.model';
 
 export const ADD_TODO = '[todo] ADD_TODO';
 export const GET_TODOS = '[todo] GET_TODO';
@@ -14,8 +14,7 @@ export const DELETE_TODO = '[todo] DELETE_TODO';
 export class AddTodo implements Action {
   readonly type = ADD_TODO;
 
-  constructor(public payload: Todo) {
-  }
+  constructor(public payload: Todo) {}
 }
 
 /**
@@ -31,8 +30,7 @@ export class GetTodos implements Action {
 export class GetTodosSuccess implements Action {
   readonly type = GET_TODOS_SUCCESS;
 
-  constructor(public payload: Todo[]) {
-  }
+  constructor(public payload: Todo[]) {}
 }
 
 /**
@@ -48,8 +46,7 @@ export class GetTodosError implements Action {
 export class UpdateTodo implements Action {
   readonly type = UPDATE_TODO;
 
-  constructor(public payload: Todo) {
-  }
+  constructor(public payload: Todo) {}
 }
 
 /**
@@ -58,11 +55,16 @@ export class UpdateTodo implements Action {
 export class DeleteTodo implements Action {
   readonly type = DELETE_TODO;
 
-  constructor(public payload: Todo) {
-  }
+  constructor(public payload: Todo) {}
 }
 
 /**
  * declare all actions.
  */
-export type AllActions = AddTodo | UpdateTodo | GetTodos | GetTodosError | GetTodosSuccess | DeleteTodo;
+export type AllActions =
+  | AddTodo
+  | UpdateTodo
+  | GetTodos
+  | GetTodosError
+  | GetTodosSuccess
+  | DeleteTodo;

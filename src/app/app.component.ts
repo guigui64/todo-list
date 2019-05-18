@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {Store} from '@ngrx/store';
+import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 
-import {IAppStore} from './store/store.models';
+import { IAppStore } from './store/store.models';
 import * as TodoActions from './store/todo/todo.action';
-import {NewTodoComponent} from './components/new-todo/new-todo.component';
-import {MatDialog} from '@angular/material';
+import { NewTodoComponent } from './components/new-todo/new-todo.component';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-root',
@@ -12,9 +12,7 @@ import {MatDialog} from '@angular/material';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-
-  constructor(private store: Store<IAppStore>, private dialog: MatDialog) {
-  }
+  constructor(private store: Store<IAppStore>, private dialog: MatDialog) {}
 
   ngOnInit() {
     this.store.dispatch(new TodoActions.GetTodos());

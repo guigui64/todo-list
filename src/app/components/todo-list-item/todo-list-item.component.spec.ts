@@ -1,10 +1,15 @@
-import {async, ComponentFixture, inject, TestBed} from '@angular/core/testing';
+import {
+  async,
+  ComponentFixture,
+  inject,
+  TestBed
+} from '@angular/core/testing';
 
-import {TodoListItemComponent} from './todo-list-item.component';
-import {TestStore} from '../../test-store.test';
-import {IAppStore} from '../../store/store.models';
-import {RouterTestingModule} from '@angular/router/testing';
-import {FormsModule} from '@angular/forms';
+import { TodoListItemComponent } from './todo-list-item.component';
+import { TestStore } from '../../test-store.test';
+import { IAppStore } from '../../store/store.models';
+import { RouterTestingModule } from '@angular/router/testing';
+import { FormsModule } from '@angular/forms';
 import {
   MatButtonModule,
   MatCardModule,
@@ -15,9 +20,9 @@ import {
   MatProgressBarModule,
   MatRadioModule
 } from '@angular/material';
-import {Store} from '@ngrx/store';
-import {TodoStateEnum} from '../../enum/todo-state.enum';
-import {Component} from '@angular/core';
+import { Store } from '@ngrx/store';
+import { TodoStateEnum } from '../../enum/todo-state.enum';
+import { Component } from '@angular/core';
 
 describe('TodoListItemComponent', () => {
   let component: TodoListItemComponent;
@@ -26,10 +31,7 @@ describe('TodoListItemComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        TestComponentWrapperComponent,
-        TodoListItemComponent
-      ],
+      declarations: [TestComponentWrapperComponent, TodoListItemComponent],
       imports: [
         RouterTestingModule,
         FormsModule,
@@ -42,16 +44,13 @@ describe('TodoListItemComponent', () => {
         MatDialogModule,
         MatProgressBarModule
       ],
-      providers: [
-        {provide: Store, useClass: TestStore}
-      ]
-    })
-      .compileComponents();
+      providers: [{ provide: Store, useClass: TestStore }]
+    }).compileComponents();
   }));
 
   beforeEach(inject([Store], (testStore: TestStore<IAppStore>) => {
     store = testStore; // save store reference for use in tests
-    store.setState({toDoList: []}); // set default state
+    store.setState({ toDoList: [] }); // set default state
   }));
 
   beforeEach(() => {
@@ -76,7 +75,9 @@ describe('TodoListItemComponent', () => {
     component.todo.state = TodoStateEnum.inProgress;
     expect(component.getTodoFooterClass(component.todo)).toEqual(['footer-50']);
     component.todo.state = TodoStateEnum.done;
-    expect(component.getTodoFooterClass(component.todo)).toEqual(['footer-100']);
+    expect(component.getTodoFooterClass(component.todo)).toEqual([
+      'footer-100'
+    ]);
   });
 });
 

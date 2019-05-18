@@ -1,13 +1,13 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {select, Store} from '@ngrx/store';
-import {IAppStore} from '../../store/store.models';
-import {Todo} from '../../models/todo.model';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { select, Store } from '@ngrx/store';
+import { IAppStore } from '../../store/store.models';
+import { Todo } from '../../models/todo.model';
 import * as TodoActions from '../../store/todo/todo.action';
-import {Observable} from 'rxjs';
+import { Observable } from 'rxjs';
 import * as selectors from '../../store/todo/todo.selectors';
-import {RouterService} from '../../services/router.service';
-import {TodoStateEnum} from '../../enum/todo-state.enum';
+import { RouterService } from '../../services/router.service';
+import { TodoStateEnum } from '../../enum/todo-state.enum';
 
 @Component({
   selector: 'app-todo-detail',
@@ -15,20 +15,20 @@ import {TodoStateEnum} from '../../enum/todo-state.enum';
   styleUrls: ['./todo-detail.component.css']
 })
 export class TodoDetailComponent implements OnInit {
-
   id: string;
   todo: Observable<Todo>;
   editMode: boolean;
   todoStateEnum = TodoStateEnum;
 
-  constructor(private route: ActivatedRoute,
-              private store: Store<IAppStore>,
-              private routerService: RouterService) {
-  }
+  constructor(
+    private route: ActivatedRoute,
+    private store: Store<IAppStore>,
+    private routerService: RouterService
+  ) {}
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
-    this.store.subscribe((state) => {
+    this.store.subscribe(state => {
       if (state.toDoList) {
         this.todo = this.store.pipe(select(selectors.getItemById(this.id)));
       }
