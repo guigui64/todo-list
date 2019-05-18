@@ -3,8 +3,13 @@ import { Store } from '@ngrx/store';
 
 import { IAppStore } from './store/store.models';
 import * as TodoActions from './store/todo/todo.action';
+import * as UserActions from './store/user/user.action';
 import { NewTodoComponent } from './components/new-todo/new-todo.component';
 import { MatDialog } from '@angular/material';
+import { AuthorizationService } from './services/authorization.service';
+import { LoginComponent } from './components/login/login.component';
+import { RoleModule, RoleAction } from './models/role.model';
+import { EMPTY_USER } from './models/user.model';
 
 @Component({
   selector: 'app-root',
@@ -12,10 +17,26 @@ import { MatDialog } from '@angular/material';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  constructor(private store: Store<IAppStore>, private dialog: MatDialog) {}
+  authorizedToAdd: Promise<boolean>;
+  loggedIn = false;
+
+  constructor(
+    private store: Store<IAppStore>,
+    private dialog: MatDialog,
+    private authService: AuthorizationService
+  ) {}
 
   ngOnInit() {
     this.store.dispatch(new TodoActions.GetTodos());
+    this.store.select('user').subscribe(user => {
+      this.loggedIn = user.name !== '';
+      this.authorizedToAdd = this.authService.hasRight(
+        JSON.stringify({
+          module: RoleModule.APP,
+          action: RoleAction.ADD
+        })
+      );
+    });
   }
 
   /**
@@ -28,6 +49,22 @@ export class AppComponent implements OnInit {
         this.onAddTodo(result);
       }
     });
+  }
+
+  /**
+   * Open "Login" dialog
+   */
+  openLoginDialog(): void {
+    const dialogRef = this.dialog.open(LoginComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.store.dispatch(new UserActions.SetName({ name: result }));
+      }
+    });
+  }
+
+  logOut(): void {
+    this.store.dispatch(new UserActions.SetName(EMPTY_USER));
   }
 
   /**

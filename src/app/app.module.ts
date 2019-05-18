@@ -26,6 +26,7 @@ import { TodoEffects } from './store/todo/todo.effects';
 import { EffectsModule } from '@ngrx/effects';
 import { HttpClientModule } from '@angular/common/http';
 import { mockedBackendProvider } from './interceptor/mocked-backend-interceptor.service';
+import { LoginComponent } from './components/login/login.component';
 
 const appRoutes: Routes = [
   {
@@ -48,7 +49,8 @@ const appRoutes: Routes = [
     NewTodoComponent,
     TodoListItemComponent,
     TodoListComponent,
-    TodoDetailComponent
+    TodoDetailComponent,
+    LoginComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -69,6 +71,6 @@ const appRoutes: Routes = [
   ],
   providers: [mockedBackendProvider],
   bootstrap: [AppComponent],
-  entryComponents: [NewTodoComponent]
+  entryComponents: [NewTodoComponent, LoginComponent]
 })
 export class AppModule {}

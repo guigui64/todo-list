@@ -8,6 +8,8 @@ import { Observable } from 'rxjs';
 import * as selectors from '../../store/todo/todo.selectors';
 import { RouterService } from '../../services/router.service';
 import { TodoStateEnum } from '../../enum/todo-state.enum';
+import { AuthorizationService } from 'src/app/services/authorization.service';
+import { RoleModule, RoleAction } from 'src/app/models/role.model';
 
 @Component({
   selector: 'app-todo-detail',
@@ -19,12 +21,16 @@ export class TodoDetailComponent implements OnInit {
   todo: Observable<Todo>;
   editMode: boolean;
   todoStateEnum = TodoStateEnum;
+  authorizedToChangeStates: Promise<boolean>;
+  authorizedToDelete: Promise<boolean>;
+  authorizedToEdit: Promise<boolean>;
 
   constructor(
     private route: ActivatedRoute,
     private store: Store<IAppStore>,
-    private routerService: RouterService
-  ) {}
+    private routerService: RouterService,
+    private authService: AuthorizationService
+  ) { }
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
@@ -34,6 +40,20 @@ export class TodoDetailComponent implements OnInit {
       }
     });
     this.editMode = false;
+    this.store.select('user').subscribe(_ => {
+      this.authorizedToChangeStates = this.authService.hasRight(JSON.stringify({
+        module: RoleModule.TODO_DETAIL,
+        action: RoleAction.CHANGE_STATE
+      }));
+      this.authorizedToDelete = this.authService.hasRight(JSON.stringify({
+        module: RoleModule.TODO_DETAIL,
+        action: RoleAction.REMOVE
+      }));
+      this.authorizedToEdit = this.authService.hasRight(JSON.stringify({
+        module: RoleModule.TODO_DETAIL,
+        action: RoleAction.REMOVE
+      }));
+    });
   }
 
   /**

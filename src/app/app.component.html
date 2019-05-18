@@ -2,8 +2,18 @@
   <h1>
     My ToDo List
   </h1>
-  <i class="material-icons add-todo-icon" (click)="openCreateDialog()">
+  <i *ngIf="authorizedToAdd | async" class="material-icons add-todo-icon" (click)="openCreateDialog()">
     add_circle_outline
   </i>
+</div>
+<div *ngIf="!loggedIn" class="login">
+  <button mat-raised-button (click)="openLoginDialog()" color="primary">
+    Login
+  </button>
+</div>
+<div *ngIf="loggedIn" class="login">
+  <button mat-raised-button (click)="logOut()" color="primary">
+    Logout
+  </button>
 </div>
 <router-outlet></router-outlet>

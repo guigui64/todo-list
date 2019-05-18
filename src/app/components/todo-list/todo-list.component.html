@@ -4,13 +4,10 @@
       <li class="todo-card-item">
         <mat-grid-list cols="10">
           <mat-grid-tile [colspan]="7">
-            <app-todo-list-item
-              [todo]="todo"
-              (click)="seeDetail(todo.id)"
-            ></app-todo-list-item>
+            <app-todo-list-item [todo]="todo" (click)="seeDetail(todo.id)"></app-todo-list-item>
           </mat-grid-tile>
           <section class="example-section">
-            <mat-radio-group [(ngModel)]="todo.state">
+            <mat-radio-group [(ngModel)]="todo.state" [disabled]="!(authorizedToChangeStates | async)">
               <mat-grid-tile [colspan]="1">
                 <mat-radio-button value="{{todoStateEnum.toDo}}">To Do</mat-radio-button>
               </mat-grid-tile>
@@ -28,6 +25,3 @@
     </ng-container>
   </ul>
 </div>
-
-
-
