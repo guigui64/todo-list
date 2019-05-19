@@ -17,6 +17,7 @@ import { EMPTY_USER } from './models/user.model';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+  displayAddButton = true;
   authorizedToAdd: Promise<boolean>;
   loggedIn = false;
 
@@ -28,8 +29,8 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new TodoActions.GetTodos());
-    this.store.select('user').subscribe(user => {
-      this.loggedIn = user.name !== '';
+    this.store.select('user', 'name').subscribe(name => {
+      this.loggedIn = name !== '';
       this.authorizedToAdd = this.authService.hasRight(
         JSON.stringify({
           module: RoleModule.APP,
@@ -37,6 +38,9 @@ export class AppComponent implements OnInit {
         })
       );
     });
+    this.store
+      .select('routerState', 'state', 'url')
+      .subscribe(url => (this.displayAddButton = url === '/'));
   }
 
   /**

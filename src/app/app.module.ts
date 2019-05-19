@@ -27,6 +27,9 @@ import { EffectsModule } from '@ngrx/effects';
 import { HttpClientModule } from '@angular/common/http';
 import { mockedBackendProvider } from './interceptor/mocked-backend-interceptor.service';
 import { LoginComponent } from './components/login/login.component';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
 
 const appRoutes: Routes = [
   {
@@ -67,7 +70,12 @@ const appRoutes: Routes = [
     MatDialogModule,
     MatProgressBarModule,
     StoreModule.forRoot(reducers, { initialState: INITIAL_STATE }),
-    EffectsModule.forRoot([TodoEffects])
+    EffectsModule.forRoot([TodoEffects]),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production
+    }),
+    StoreRouterConnectingModule.forRoot()
   ],
   providers: [mockedBackendProvider],
   bootstrap: [AppComponent],
