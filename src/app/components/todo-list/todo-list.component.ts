@@ -3,7 +3,6 @@ import { Todo } from '../../models/todo.model';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { IAppStore } from '../../store/store.models';
-import { MatDialog } from '@angular/material';
 import { RouterService } from '../../services/router.service';
 import { TodoStateEnum } from '../../enum/todo-state.enum';
 import { AuthorizationService } from 'src/app/services/authorization.service';
@@ -22,24 +21,27 @@ export class TodoListComponent implements OnInit {
 
   constructor(
     private store: Store<IAppStore>,
-    private dialog: MatDialog,
     private routerService: RouterService,
     private authService: AuthorizationService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.todos = this.store.select(state =>
       state.toDoList.filter(todo => todo.state === TodoStateEnum.toDo)
     );
     this.store.select('user').subscribe(_ => {
-      this.authorizedToChangeStates = this.authService.hasRight(JSON.stringify({
-        module: RoleModule.TODO_LIST,
-        action: RoleAction.CHANGE_STATE
-      }));
-      this.authorizedToSeeAll = this.authService.hasRight(JSON.stringify({
-        module: RoleModule.TODO_LIST,
-        action: RoleAction.VIEW_ALL
-      }));
+      this.authorizedToChangeStates = this.authService.hasRight(
+        JSON.stringify({
+          module: RoleModule.TODO_LIST,
+          action: RoleAction.CHANGE_STATE
+        })
+      );
+      this.authorizedToSeeAll = this.authService.hasRight(
+        JSON.stringify({
+          module: RoleModule.TODO_LIST,
+          action: RoleAction.VIEW_ALL
+        })
+      );
       this.authorizedToSeeAll.then(auth => {
         if (auth) {
           this.todos = this.store.select(state => state.toDoList);
@@ -63,7 +65,7 @@ export class TodoListComponent implements OnInit {
    * Sort Todo array according to Todo's date and Todo's state
    */
   sortTodos(todosArray: Todo[]) {
-    return todosArray.sort(function (todoA, todoB) {
+    return todosArray.sort(function(todoA, todoB) {
       if (todoA.state !== todoB.state) {
         if (todoA.state !== 'done' && todoB.state !== TodoStateEnum.done) {
           return new Date(todoA.date) < new Date(todoB.date) ? 1 : -1;

@@ -31,7 +31,7 @@ export class AuthorizationService {
   private _username = '';
 
   constructor(private store: Store<IAppStore>) {
-    this.store.select('user').subscribe(({ name }) => {
+    this.store.select('user', 'name').subscribe(name => {
       this._username = name;
     });
   }
@@ -39,9 +39,11 @@ export class AuthorizationService {
   hasRight(requestedRight: string): Promise<boolean> {
     const { _username } = this;
     if (_username) {
-      const authorized = DB[_username].authorizedRoles.some(
-        (authRole: Role) => JSON.stringify(authRole) === requestedRight
-      );
+      const authorized =
+        DB[_username] &&
+        DB[_username].authorizedRoles.some(
+          (authRole: Role) => JSON.stringify(authRole) === requestedRight
+        );
       return Promise.resolve(authorized);
     }
     return Promise.resolve(false);

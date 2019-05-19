@@ -17,7 +17,7 @@ import {
   MatRadioModule
 } from '@angular/material';
 import { Store } from '@ngrx/store';
-import { IAppStore } from './store/store.models';
+import { IAppStore, INITIAL_STATE } from './store/store.models';
 import { TestStore } from './test-store.test';
 import { TodoStateEnum } from './enum/todo-state.enum';
 import * as TodoActions from './store/todo/todo.action';
@@ -55,7 +55,7 @@ describe('AppComponent', () => {
 
   beforeEach(inject([Store], (testStore: TestStore<IAppStore>) => {
     store = testStore; // save store reference for use in tests
-    store.setState({ toDoList: [] }); // set default state
+    store.setState(INITIAL_STATE); // set default state
   }));
 
   it('should create the app', () => {

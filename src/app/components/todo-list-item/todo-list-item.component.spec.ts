@@ -7,7 +7,7 @@ import {
 
 import { TodoListItemComponent } from './todo-list-item.component';
 import { TestStore } from '../../test-store.test';
-import { IAppStore } from '../../store/store.models';
+import { IAppStore, INITIAL_STATE } from '../../store/store.models';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule } from '@angular/forms';
 import {
@@ -23,6 +23,20 @@ import {
 import { Store } from '@ngrx/store';
 import { TodoStateEnum } from '../../enum/todo-state.enum';
 import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-test-component-wrapper',
+  template: '<app-todo-list-item [todo]="todo"></app-todo-list-item>'
+})
+class TestComponentWrapperComponent {
+  todo = {
+    id: '3',
+    state: TodoStateEnum.done,
+    title: '',
+    description: '',
+    date: new Date('2011-01-10T10:20:30Z')
+  };
+}
 
 describe('TodoListItemComponent', () => {
   let component: TodoListItemComponent;
@@ -50,7 +64,7 @@ describe('TodoListItemComponent', () => {
 
   beforeEach(inject([Store], (testStore: TestStore<IAppStore>) => {
     store = testStore; // save store reference for use in tests
-    store.setState({ toDoList: [] }); // set default state
+    store.setState(INITIAL_STATE); // set default state
   }));
 
   beforeEach(() => {
@@ -80,17 +94,3 @@ describe('TodoListItemComponent', () => {
     ]);
   });
 });
-
-@Component({
-  selector: 'app-test-component-wrapper',
-  template: '<app-todo-list-item [todo]="todo"></app-todo-list-item>'
-})
-class TestComponentWrapperComponent {
-  todo = {
-    id: '3',
-    state: TodoStateEnum.done,
-    title: '',
-    description: '',
-    date: new Date('2011-01-10T10:20:30Z')
-  };
-}

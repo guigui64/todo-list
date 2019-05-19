@@ -7,7 +7,7 @@ import {
 
 import { TodoDetailComponent } from './todo-detail.component';
 import { TestStore } from '../../test-store.test';
-import { IAppStore } from '../../store/store.models';
+import { IAppStore, INITIAL_STATE } from '../../store/store.models';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -52,7 +52,7 @@ describe('TodoDetailComponent', () => {
 
   beforeEach(inject([Store], (testStore: TestStore<IAppStore>) => {
     store = testStore; // save store reference for use in tests
-    store.setState({ toDoList: [] }); // set default state
+    store.setState(INITIAL_STATE); // set default state
   }));
 
   beforeEach(() => {
