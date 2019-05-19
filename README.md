@@ -42,5 +42,6 @@ I added the following features:
 Some improvements can be imagined:
 
 - Tests
+- Use ngrx effects for getting the rights
 - Use an `HttpClient` to get the user rights
 - Saving the user to local storage
