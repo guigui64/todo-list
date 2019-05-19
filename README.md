@@ -1,27 +1,46 @@
 # TodoList
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.2.1.
+My implementation of an authorization and rights feature.
 
-## Development server
+## User in Store
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+I added a field to the App Store for the **user** (only its name for this simple implementation) and the action `SetName`.
 
-## Code scaffolding
+A **login** component (dialog) added under the title allows the user to log and updates the state.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Authorization Service
 
-## Build
+I created an Angular **service** for the components to ask for the authorizations according to requested rights.
+It is linked to the user in the store.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+I created a fake DB that gives the following rights to the users:
 
-## Running unit tests
+- 'free' user:
+  - **Add** a todo task
+  - **Edit** a todo task
+  - **Remove** a todo task
+- 'premium' user:
+  - All 'free' permissions, plus:
+  - **View all tasks** (not only 'to-do' ones)
+  - **Change the tasks state** (in both views)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## `requestedRight` field
 
-## Running end-to-end tests
+I created a `Role` type that is composed of 2 enums: `module` and `action`.
+I then use `JSON.stringify()` to get the string from a specific role.
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+## Suplementary features
 
-## Further help
+I added the following features:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+- Hide the add button when in the detail view (using `@ngrx/router-store`)
+- Login dialog
+- Redux DevTools instrumentation with `@ngrx/store-devtools`
+
+## Room for improvements
+
+Some improvements can be imagined:
+
+- Tests
+- Use an `HttpClient` to get the user rights
+- Saving the user to local storage
